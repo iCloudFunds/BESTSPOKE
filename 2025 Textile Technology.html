@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KYNET SIMULATION LESSONS AND SOLUTIONS TO PAST GCE QUESTIONS</title>
+<style>
+  :root{ --red:#e4002b; --blue:#0032a0; --yellow:#ffd100; --green:#00a651; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Arial Black","Arial Bold",Gadget,Arial,sans-serif;font-weight:900;background:#fff;color:#000;min-height:100vh;}
+
+  header{background:var(--blue);border-bottom:10px solid var(--yellow);padding:14px 10px;text-align:center;}
+  header h1{color:#fff;font-size:clamp(15px,2.9vw,38px);line-height:1.18;letter-spacing:1px;text-transform:uppercase;text-shadow:3px 3px 0 #000;}
+  header .phone{display:inline-block;margin-top:10px;background:var(--yellow);color:#000;font-size:clamp(18px,3vw,34px);letter-spacing:8px;padding:3px 20px;border:4px solid #000;border-radius:10px;}
+
+  #nav{position:sticky;top:0;z-index:500;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+       background:var(--yellow);border-bottom:6px solid #000;padding:10px;}
+  #nav button{font-family:inherit;font-weight:900;text-transform:uppercase;
+    font-size:clamp(12px,1.65vw,20px);padding:10px 18px;background:#fff;color:#000;
+    border:4px solid #000;border-radius:12px;box-shadow:5px 5px 0 #000;cursor:pointer;transition:transform .08s;}
+  #nav button:active{transform:translate(4px,4px);box-shadow:1px 1px 0 #000;}
+  #nav button.active{background:var(--red);color:#fff;}
+
+  main{max-width:1100px;margin:0 auto;padding:20px 14px 70px;}
+  .card{background:#fff;border:6px solid #000;border-radius:16px;box-shadow:12px 12px 0 var(--blue);padding:18px;}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .badge{background:var(--blue);color:#fff;padding:8px 16px;border:4px solid #000;border-radius:999px;
+         font-size:clamp(12px,1.6vw,19px);letter-spacing:1px;white-space:nowrap;}
+  .badge.red{background:var(--red);} .badge.green{background:var(--green);} .badge.yel{background:var(--yellow);color:#000;}
+  .bar{height:20px;background:#fff;border:4px solid #000;border-radius:999px;overflow:hidden;margin-bottom:18px;}
+  .bar > i{display:block;height:100%;background:var(--green);width:0;transition:width .35s ease;}
+
+  .lec-title{display:inline-block;background:var(--red);color:#fff;font-size:clamp(15px,2.1vw,27px);
+             text-transform:uppercase;padding:10px 18px;border:5px solid #000;border-radius:12px;
+             margin-bottom:12px;box-shadow:6px 6px 0 #000;line-height:1.25;}
+
+  .homebtn{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;
+    font-family:inherit;font-weight:900;text-transform:uppercase;text-align:left;
+    font-size:clamp(17px,2.6vw,32px);padding:22px 26px;margin-bottom:20px;
+    background:#fff;color:#000;border:6px solid #000;border-radius:18px;
+    box-shadow:10px 10px 0 #000;cursor:pointer;transition:transform .08s,background .15s;}
+  .homebtn:hover{background:var(--yellow);transform:translate(-3px,-3px);}
+  .homebtn:active{transform:translate(6px,6px);box-shadow:4px 4px 0 #000;}
+  .homebtn .num{background:var(--blue);color:#fff;border:4px solid #000;border-radius:12px;padding:6px 16px;font-size:.75em;}
+  .homebtn.b2 .num{background:var(--red);} .homebtn.b3 .num{background:var(--green);}
+
+  .bh{font-size:clamp(16px,2.1vw,26px);text-transform:uppercase;background:#000;color:var(--yellow);
+      display:inline-block;padding:6px 14px;border-radius:9px;margin:22px 0 12px;}
+  .bp{font-size:clamp(14px,1.85vw,22px);line-height:1.5;margin-bottom:12px;}
+  .bul{margin:0 0 14px 0;}
+  .bul li{list-style:none;font-size:clamp(14px,1.8vw,21px);line-height:1.45;margin-bottom:8px;
+          padding-left:30px;position:relative;}
+  .bul li:before{content:"▶";position:absolute;left:4px;color:var(--red);}
+  .btip{background:#fffbe0;border:4px solid #000;border-left:16px solid var(--yellow);
+        border-radius:10px;padding:14px 18px;font-size:clamp(14px,1.8vw,21px);line-height:1.45;margin:12px 0;}
+  .bworked{background:#e8f7ee;border:5px solid #000;border-left:16px solid var(--green);
+           border-radius:12px;padding:14px 18px;margin:14px 0;font-size:clamp(14px,1.8vw,21px);line-height:1.5;}
+  .bworked b{display:block;margin-bottom:8px;font-size:1.05em;}
+  .bworked ol{margin-left:24px;} .bworked li{margin-bottom:6px;}
+  .bans{margin-top:10px;background:var(--green);color:#fff;border:4px solid #000;border-radius:9px;
+        padding:8px 14px;display:inline-block;font-size:1.02em;}
+  .bp2{background:#f0e8ff;border:5px solid #000;border-left:16px solid #7a00c8;
+       border-radius:12px;padding:14px 18px;margin:16px 0;font-size:clamp(14px,1.8vw,21px);line-height:1.5;}
+  .bp2 b.p2h{display:block;background:#7a00c8;color:#fff;padding:5px 12px;border-radius:8px;
+             margin-bottom:10px;font-size:.92em;letter-spacing:1px;}
+
+  .extract{background:#fdf6e3;border:5px solid #000;border-left:16px solid #b58900;border-radius:12px;
+           padding:16px 20px;margin:16px 0;font-family:"Times New Roman",Times,serif;font-weight:bold;
+           font-size:clamp(14px,1.8vw,20px);line-height:1.6;}
+  .extract p{margin-bottom:10px;}
+
+  .qtext{font-size:clamp(18px,2.4vw,30px);line-height:1.35;margin:4px 0 18px;}
+  .opt{display:block;width:100%;text-align:left;font-family:inherit;font-weight:900;
+       font-size:clamp(15px,1.95vw,24px);padding:15px 18px;margin-bottom:14px;
+       background:#fff;color:#000;border:5px solid #000;border-radius:14px;
+       box-shadow:7px 7px 0 #000;cursor:pointer;transition:transform .08s,background .15s;}
+  .opt:hover:not(:disabled){background:var(--yellow);transform:translate(-2px,-2px);}
+  .opt:disabled{cursor:default;}
+  .opt .letter{display:inline-block;background:var(--blue);color:#fff;border:3px solid #000;
+               border-radius:9px;padding:1px 12px;margin-right:14px;}
+  .opt.correct{background:var(--green);color:#fff;} .opt.correct .letter{background:#fff;color:var(--green);}
+  .opt.wrong{background:var(--red);color:#fff;} .opt.wrong .letter{background:#fff;color:var(--red);}
+
+  .feedback{border:6px solid #000;border-radius:16px;padding:16px 18px;margin-top:8px;
+            font-size:clamp(14px,1.8vw,22px);line-height:1.5;}
+  .feedback.good{background:#d8ffe4;box-shadow:9px 9px 0 var(--green);}
+  .feedback.bad{background:#ffe1e5;box-shadow:9px 9px 0 var(--red);}
+  .feedback .big{display:block;font-size:clamp(38px,7vw,74px);line-height:1;margin-bottom:8px;}
+  .feedback .head{font-size:clamp(16px,2.2vw,28px);margin-bottom:10px;}
+  .answer-chip{display:inline-block;background:var(--yellow);border:3px solid #000;border-radius:8px;padding:2px 12px;}
+
+  .btn{font-family:inherit;font-weight:900;text-transform:uppercase;
+       font-size:clamp(14px,1.9vw,24px);padding:14px 28px;border:5px solid #000;border-radius:14px;
+       background:var(--yellow);color:#000;box-shadow:8px 8px 0 #000;cursor:pointer;
+       transition:transform .08s,box-shadow .08s;}
+  .btn:active{transform:translate(5px,5px);box-shadow:3px 3px 0 #000;}
+  .btn.sm{font-size:clamp(12px,1.5vw,18px);padding:10px 18px;box-shadow:5px 5px 0 #000;}
+  .btn.blue{background:var(--blue);color:#fff;} .btn.red{background:var(--red);color:#fff;}
+  .btn.green{background:var(--green);color:#fff;}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:8px 8px 0 #000;}
+  .btnrow{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px;align-items:center;justify-content:space-between;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px;}
+  .gridcard{background:#fff;border:5px solid #000;border-radius:14px;padding:16px;
+            box-shadow:7px 7px 0 var(--blue);cursor:pointer;transition:transform .08s,background .15s;text-align:left;}
+  .gridcard:hover{background:var(--yellow);transform:translate(-2px,-2px);}
+  .gridcard .gtitle{font-size:clamp(14px,1.8vw,21px);line-height:1.3;margin-bottom:8px;}
+  .gridcard .gtag{display:inline-block;background:var(--red);color:#fff;border:3px solid #000;
+                  border-radius:8px;padding:2px 10px;font-size:clamp(11px,1.4vw,16px);}
+
+  .info{background:#fffbe0;border:4px solid #000;border-left:16px solid var(--yellow);
+        border-radius:10px;padding:14px 18px;font-size:clamp(14px,1.8vw,21px);line-height:1.5;margin-bottom:18px;}
+  .info.red{background:#ffe1e5;border-left-color:var(--red);}
+  .info.green{background:#d8ffe4;border-left-color:var(--green);}
+
+  .p2card{background:#fff;border:5px solid #000;border-radius:14px;padding:16px 18px;
+          margin-bottom:18px;box-shadow:7px 7px 0 var(--blue);}
+  .p2q{font-size:clamp(15px,1.95vw,23px);line-height:1.5;margin-bottom:14px;}
+  .p2sol{display:none;margin-top:16px;background:#e8f7ee;border:5px solid #000;
+         border-left:16px solid var(--green);border-radius:12px;padding:14px 18px;
+         font-size:clamp(14px,1.8vw,21px);line-height:1.55;}
+  .p2sol .p2label{background:var(--green);color:#fff;border:3px solid #000;border-radius:8px;
+                  padding:3px 12px;display:inline-block;margin-bottom:10px;font-size:.85em;}
+  .p2sol p{margin-bottom:10px;}
+
+  .ag-wrap{background:#fffbe0;border:5px solid #000;border-radius:12px;padding:14px;margin:18px 0;}
+  .ag-title{font-size:clamp(14px,1.8vw,20px);margin-bottom:10px;text-transform:uppercase;}
+  .ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px;}
+  .ag-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(11px,1.4vw,16px);
+    border:3px solid #000;border-radius:8px;cursor:pointer;transition:transform .1s;}
+  .ag-cell:hover{transform:scale(1.08);}
+  .ag-cell.correct{background:var(--green);color:#fff;}
+  .ag-cell.wrong{background:var(--red);color:#fff;}
+  .ag-cell.unanswered{background:#ddd;color:#333;}
+
+  #fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9999;}
+  .floater{position:absolute;bottom:-14vh;animation:floatUp linear forwards;will-change:transform,opacity;}
+  @keyframes floatUp{0%{transform:translateY(0) scale(.4) rotate(0);opacity:0;}
+    12%{opacity:1;transform:translateY(-10vh) scale(1) rotate(-8deg);}
+    100%{transform:translateY(-120vh) scale(1.15) rotate(28deg);opacity:0;}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-11px)}
+    40%{transform:translateX(11px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+  .shake{animation:shake .5s;}
+  @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+  .pop{animation:pop .4s ease-out;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>KYNET SIMULATION LESSONS AND SOLUTIONS TO PAST GCE QUESTIONS</h1>
+  <div class="phone">652 92 48 16</div>
+</header>
+
+<nav id="nav">
+  <button data-nav="home">🏠 HOME</button>
+  <button data-nav="lectures">📚 LECTURES</button>
+  <button data-nav="p1intro">📝 PAPER 1</button>
+  <button data-nav="p2intro">📄 PAPER 2</button>
+</nav>
+
+<main id="app"></main>
+<div id="fx"></div>
+
+<script>
+/* ============================================================
+   LECTURES
+   ============================================================ */
+const LECS = [
+{
+ id:'fibres', title:'LECTURE 1 — FIBRES: NATURAL & SYNTHETIC', tag:'FIBRE SCIENCE',
+ blocks:[
+  {type:'p', text:'Fibres are the building blocks of fabrics. They are classified as Natural (from plants, animals, or minerals) or Man-made/Synthetic (from chemicals).'},
+  {type:'h', text:'NATURAL FIBRES'},
+  {type:'ul', items:[
+    'Plant (Cellulosic): Cotton, Linen (from Flax plant), Ramie (China grass), Sisal, Jute. The main component is CELLULOSE.',
+    'Animal (Protein): Wool (from sheep), Silk (from silkworm). Wool contains KERATIN; Silk contains FIBROIN.',
+    'Mineral: Asbestos (known for being flame retardant/resistant).'
+  ]},
+  {type:'h', text:'MAN-MADE / SYNTHETIC FIBRES'},
+  {type:'ul', items:[
+    'Regenerated: Viscose/Rayon (from wood pulp/cellulose), Acetate. These are made from natural polymers but chemically processed.',
+    'Synthetic: Nylon (Polyamide), Polyester (e.g., Tergal, Dacron), Acrylic (often used to imitate wool). Fully chemical-based (petroleum).'
+  ]},
+  {type:'tip', text:'SILK is the only natural filament fibre. It is produced by the silkworm. The breeding of silkworms is called SERICULTURE.'},
+  {type:'h', text:'FIBRE IDENTIFICATION'},
+  {type:'ul', items:[
+    'Burning Test: The smell, colour of flame, and nature of ash help identify fibres (e.g., burning paper smell = cellulose; burning hair smell = protein).',
+    'Microscope View: Reveals the longitudinal and cross-sectional shape of the fibre.'
+  ]},
+  {type:'h', text:'FIBRE PROPERTIES'},
+  {type:'ul', items:[
+    'Hydrophilic: Water-loving (absorbs moisture).',
+    'Hydrophobic (Water-hating): Repels water.',
+    'Resilience: The ability of a fabric to resist creasing and return to its original shape.',
+    'Thermochromatic: Changes colour with changes in temperature.'
+  ]},
+  {type:'tip', text:'Mercerization is a treatment applied specifically to COTTON using strong alkali (sodium hydroxide) to make it stronger, shinier, and more absorbent.'}
+ ]
+},
+{
+ id:'fabric', title:'LECTURE 2 — FABRIC CONSTRUCTION & FINISHES', tag:'CONSTRUCTION & FINISHING',
+ blocks:[
+  {type:'p', text:'Fabrics can be constructed through weaving, knitting, or non-woven methods (like bonding or felting).'},
+  {type:'h', text:'FABRIC STRUCTURES'},
+  {type:'ul', items:[
+    'Woven: Made on a loom by interlacing warp (lengthwise) and weft (crosswise) yarns. (Loom is to weaving).',
+    'Knitted: Interlocking loops of yarn. (Sewing/knitting machine is to knitting).',
+    'Non-woven: Made directly from fibres without yarn spinning. They have NO GRAIN and NO SELVEDGE, making them easy to cut but they fray easily. They are often made by bonding, felting, or laminating.',
+    'Laminated: Two or three layers of fabric stuck together for added durability or waterproofing.',
+    'Bonded: Web of fibres held together by adhesive.'
+  ]},
+  {type:'h', text:'YARN TWIST'},
+  {type:'ul', items:[
+    'S-twist: Twisted to the left.',
+    'Z-twist: Twisted to the right.'
+  ]},
+  {type:'h', text:'FABRIC FINISHES'},
+  {type:'ul', items:[
+    'Carbonizing: Process used to eliminate vegetable matter from wool/yarn using sulfuric acid.',
+    'Scouring: Removing natural impurities (wax, grease) from fibres.',
+    'Bleaching: Making fabrics white.',
+    'Singeing: Burning off protruding fibres from the surface of the fabric.',
+    'Mercerizing: Treating cotton with strong alkali to improve lustre and strength.'
+  ]},
+  {type:'p2', title:'PAPER 2 SKILL — FABRIC FINISHES', body:'When asked about finishing processes, focus on the purpose. For example, bleaching improves whiteness, while calendering gives a smooth, polished surface.'}
+ ]
+},
+{
+ id:'tools', title:'LECTURE 3 — SEWING TOOLS & EQUIPMENT', tag:'TOOLS & MACHINES',
+ blocks:[
+  {type:'h', text:'HAND TOOLS'},
+  {type:'ul', items:[
+    'Pinking shears: Produce a zig-zag edge to prevent fraying.',
+    'Buttonhole scissors: Used for cutting buttonholes.',
+    'Needles: Both hand and machine needles have a POINT and an EYE.',
+    'Thimble: Protects the finger when hand sewing.',
+    'Tape measure: Flexible, used for taking body measurements.'
+  ]},
+  {type:'h', text:'SEWING MACHINE PARTS'},
+  {type:'ul', items:[
+    'Feed Dog: The toothed part that moves the fabric forward during sewing.',
+    'Presser Foot: Holds the fabric down against the feed dog.',
+    'Throat Plate (Needle Plate): The metal plate under the presser foot. It has slots that allow the feed dog to emerge and grip the fabric.',
+    'Take-up lever: Controls the thread tension.',
+    'Bobbin & Case: Holds the lower thread.'
+  ]},
+  {type:'tip', text:'Common sewing machine faults: A broken needle is usually caused by pulling the fabric, using the wrong needle size, or hitting a pin. Puckering is often caused by incorrect thread tension or a blunt needle.'}
+ ]
+},
+{
+ id:'care', title:'LECTURE 4 — TEXTILE CARE & PROPERTIES', tag:'CARE & MAINTENANCE',
+ blocks:[
+  {type:'h', text:'IRONING TEMPERATURES'},
+  {type:'ul', items:[
+    'Cotton: Can withstand high heat (approx 200°C).',
+    'Wool: Moderate heat (use a pressing cloth).',
+    'Synthetic (Nylon, Polyester, Acrylic): Low heat — they melt easily.',
+    'Silk: Low heat (use a cool iron).'
+  ]},
+  {type:'h', text:'FIBRE PROPERTIES'},
+  {type:'ul', items:[
+    'Resilience: Ability to resist creasing.',
+    'Absorbency: How much moisture a fibre takes up.',
+    'Lanolin: The natural grease in wool that keeps the fleece waterproof and soft.'
+  ]},
+  {type:'h', text:'FABRIC CARE'},
+  {type:'ul', items:[
+    'Nylon is a strong, elastic, and resilient synthetic fibre. It has a stiff, odorless, and shiny appearance.',
+    'Acrylic is often used as a substitute for wool because it is warm and soft.',
+    'Glass fibres do not burn; they melt at very high temperatures.'
+  ]},
+  {type:'p2', title:'PAPER 2 SKILL — FIBRE SELECTION', body:'When choosing a fabric for a specific garment, consider the climate, the occasion, and the required properties. For example, a suit jacket for August (hot/rainy) needs to be breathable (cotton/linen blend) but might also need some water resistance.'}
+ ]
+},
+{
+ id:'techniques', title:'LECTURE 5 — TEXTILE TECHNIQUES & TERMINOLOGY', tag:'TERMINOLOGY',
+ blocks:[
+  {type:'h', text:'TEXTILE TERMS'},
+  {type:'ul', items:[
+    'Spinneret: The nozzle with tiny holes through which a synthetic fibre solution is extruded to form filaments.',
+    'Textile Code / Trade Name: Used to differentiate a product from competitors (e.g., Tergal for polyester).',
+    'Composition Label: Indicates the fibre content of a garment.',
+    'Laying out / Spreading: Arranging patterns on fabric in superimposed layers to cut multiple pieces at once.'
+  ]},
+  {type:'h', text:'CONVERSIONS'},
+  {type:'ul', items:[
+    '1 metre = 100 cm',
+    '1 yard = 91.44 cm (approx 0.91 m)',
+    'Difference: A metre is about 9 cm longer than a yard.'
+  ]},
+  {type:'h', text:'SEWING TERMS'},
+  {type:'ul', items:[
+    'Grain: The direction of the yarns in a woven fabric.',
+    'Selvedge: The self-finished edge of a woven fabric.',
+    'Bias: The diagonal direction of a woven fabric (has the most stretch).'
+  ]}
+ ]
+}
+];
+
+/* ============================================================
+   PAPER 1 — MCQs (50 Questions)
+   ============================================================ */
+const QS = [
+{q:"Which of the following is a natural filament fibre?",o:["Linen","Silk","Viscose","Wool"],a:1,e:"Silk is the only natural filament fibre (a continuous thread). Linen, Viscose, and Wool are staple fibres (short lengths)."},
+{q:"Why are non-woven fabrics easy to cut out?",o:["Because they have no grains","Because they are easily gotten","Because they always have self-edges","Because they have a warp and weft"],a:0,e:"Non-woven fabrics are made directly from fibres, not woven or knitted. Therefore, they have no grain lines or direction, making them easy to cut in any direction."},
+{q:"Mercerization is not just done on any fibre. Identify the particular fibre on which it is done.",o:["Silk","Cotton","Acetate","Wool"],a:1,e:"Mercerization is a chemical treatment (using sodium hydroxide) applied specifically to cotton to increase its strength, lustre, and absorbency."},
+{q:"One of the words below means a change of colour with high temperature.",o:["Thermometer","Thermochromatic","Thermal","Biological"],a:1,e:"Thermochromatic materials change colour in response to changes in temperature."},
+{q:"What is another name for stem fibres?",o:["Leaf fibres","Bast fibres","Root fibres","Fruit fibres"],a:1,e:"Fibres obtained from the stem of a plant are called bast fibres (e.g., flax, hemp, jute)."},
+{q:"Two common features on a hand sewing needle and a sewing machine needle are:",o:["Shredder head","Groove and point","Needle and eye","Point and eye"],a:3,e:"Both hand and machine sewing needles must have a sharp point to penetrate the fabric and an eye to hold the thread."},
+{q:"The direction of twisting yarns to the left-hand is called:",o:["Z-twist","F-twist","S-twist","O-twist"],a:2,e:"An S-twist is a yarn twisted in the left-hand direction (following the slant of the letter 'S')."},
+{q:"What differentiates a particular textile product from its competing brands is known as:",o:["Textile article","Trade name","Textile code","Style"],a:1,e:"A trade name (or brand name) is used by manufacturers to identify and differentiate their product in the market (e.g., 'Tergal')."},
+{q:"Why is nylon not easily damaged by moths, mould and mildew?",o:["Because it is a man-made fibre","Because it is composed purely of chemicals","Because it is made up of natural fibre","Because it is bitter and poisonous"],a:0,e:"Nylon is a synthetic (man-made) fibre. Moths and microorganisms that feed on natural protein fibres (like wool) cannot digest synthetic fibres."},
+{q:"A fibre derived from the skin of an animal and used in producing shoes is known as:",o:["Suede","Leather","Coir","PVC"],a:1,e:"Leather is the processed skin/hide of an animal used for shoes and bags."},
+{q:"The fibre identification method in which the smell, colour of flame and nature of ash is known:",o:["Chemical test","Microscope view","Burning test","Physical test"],a:2,e:"The burning test involves observing the flame, smell, and ash when a fibre is burned (e.g., burning hair smell for wool, burning paper for cotton)."},
+{q:"What is the name of the natural gum found in juice?",o:["Adhesive","Glue","Pectin","Sticker"],a:2,e:"Pectin is a natural gum found in the cell walls of plants and fruits."},
+{q:"The breeding of silk worm is called:",o:["Cultivation","Tussore","Sericulture","Farming"],a:2,e:"Sericulture is the specific term for the rearing of silkworms for silk production."},
+{q:"Viscose is to cotton as ___ is to silk.",o:["Nylon","Viscose","Tergal","Acetate"],a:3,e:"Viscose is a regenerated cellulose fibre that imitates cotton. Acetate is a regenerated cellulose fibre often used to imitate the lustre and feel of silk."},
+{q:"The fibrous part of a vegetable fibre is composed of:",o:["Cellulose","Fibre","Fibrous","Cellulosic"],a:0,e:"Vegetable fibres are mainly composed of the natural polymer cellulose."},
+{q:"One of the following is a characteristic of asbestos in a blended fabric.",o:["Flammability","Flame retardant","Flammable","Flame resistant"],a:1,e:"Asbestos is a mineral fibre known for its excellent heat and fire resistance. It is flame retardant."},
+{q:"The plant that produces linen is known as:",o:["Fur","Flax","Fure","Sisal"],a:1,e:"Linen is produced from the fibres of the flax plant."},
+{q:"Which of these is a synthetic fibre?",o:["Acetate","Viscose","Rayon","Acrylic"],a:3,e:"Acrylic is a fully synthetic fibre made from petrochemicals. Acetate, Viscose, and Rayon are regenerated fibres derived from cellulose."},
+{q:"Select from the list below, which is a protein in wool.",o:["Fibroin","Sericin","Lanolin","Keratin"],a:3,e:"Keratin is the protein that makes up wool and hair."},
+{q:"The process of eliminating vegetable matter from wool yarn by the use of sulphuric acid is referred to as:",o:["Mercerizing","Singeing","Carbonizing","Scouring"],a:2,e:"Carbonizing uses a strong acid to dissolve and burn off any burrs or vegetable matter (like grass) mixed in with the wool without damaging the wool fibres."},
+{q:"Which of these definition best refers to scouring?",o:["Destruction of cellulosic impurities","Treatment of cotton with strong alkaline","Removal of natural impurities","Removal of fibres from wool"],a:2,e:"Scouring is the washing process that removes natural impurities like wax, grease, and dirt from fibres before they are processed further."},
+{q:"The method used to obtain fibres from the stem is called:",o:["Chewing","Shattering","Ginning","Pool retting"],a:3,e:"Retting is the process of soaking plant stems in water to allow bacteria to break down the pectins that hold the fibres to the woody core."},
+{q:"Uncultivated silk is known as:",o:["Filament","Sericulture","Tussore","Tussah"],a:3,e:"Tussah (or Tussore) silk comes from silkworms that feed on oak and other forest leaves, as opposed to cultivated mulberry silk."},
+{q:"One of the terms below means a fibre is water hating.",o:["Permeable","Resilience","Hydrophilic","Absorbent"],a:0,e:"A fibre that is water-hating is termed hydrophobic. None of the options perfectly describe this, but 'Permeable' (allowing water through, the opposite of water-hating) or the omission of 'hydrophobic' suggests a possible typo in the original paper. (Note: Hydrophilic = water loving; Resilience = resisting creasing)."},
+{q:"Another name for fibre content is:",o:["Composition label","Trade name","Trade code","Trade mark"],a:0,e:"A composition label lists the fibre content (e.g., 100% Cotton) of a textile product."},
+{q:"Select from the list below, trade names associated to polyester:",o:["Dacron, Kodel, Tergal","Wire","Glass","Melton"],a:0,e:"Dacron, Kodel, and Tergal are all brand/trade names for polyester fibres."},
+{q:"What is the family name for nylon?",o:["Nylon 66","Nylon 6","Nylon 11","Polyamide"],a:3,e:"Polyamide is the chemical family name for nylon fibres."},
+{q:"A finish given to a fabric to improve on its whiteness is called:",o:["Calendering","Brushing","Scouring","Bleaching"],a:3,e:"Bleaching is the chemical process used to remove natural colouring matters and make fabrics white."},
+{q:"At what temperature is cotton fibre ironed?",o:["210 °C","200 °C","120 °C","160 °C"],a:1,e:"Cotton can withstand high temperatures, typically ironed at around 200 °C."},
+{q:"How does glass burn?",o:["With high flame","With high temperature","With a bright flame","With a freezing temperature"],a:2,e:"Glass fibres do not burn; they melt at extremely high temperatures. If forced to choose from the odd options, a bright flame is the closest visual for the intense heat of melting glass."},
+{q:"Identify the various stages of processing silk fibres:",o:["Spinning, weaving, knitting, twisting","Shearing, scouring, dyeing, carding","Reeling, throwing, spinning, de-gumming","Threading, squeezing, kneading, creasing"],a:2,e:"The silk process involves reeling (unwinding from the cocoon), throwing (twisting), spinning, and degumming (removing the sericin gum)."},
+{q:"The pair of scissors that produces zig-zag:",o:["Paper scissors","Buttonhole","cutting out scissors","pinking shears"],a:3,e:"Pinking shears have serrated blades that cut a zig-zag edge to prevent woven fabrics from fraying."},
+{q:"Keeps the fleece waterproof during breeding:",o:["Keratin","Fibroin","Lanolin","Protein"],a:2,e:"Lanolin is the natural grease/wax secreted by sheep that coats the wool fibres, making the fleece waterproof."},
+{q:"A flexible woven material consisting of a network of natural or artificial fibres is:",o:["Garment","Cloth","Fibres","Apparel"],a:1,e:"Cloth (or fabric) is the flexible woven material made from fibres. A garment is a finished piece of clothing made from cloth."},
+{q:"Loom is to weaving as ___ is to knitting.",o:["Sewing machine","Flatbed","Overcasting machine","Shuttle"],a:0,e:"A loom is the machine used for weaving. Similarly, a sewing machine (or specifically a knitting machine) is used for knitting fabrics."},
+{q:"How much longer is a metre of fabric from a yard of fabric?",o:["10 cm","15 cm","12 cm","13 cm"],a:0,e:"1 yard = 91.44 cm. 1 metre = 100 cm. The difference is roughly 8.5 cm, closest to 10 cm."},
+{q:"The nozzle through which the acetate solution is extracted is called:",o:["Spinneret","Shower","Extruder","Valve"],a:0,e:"A spinneret is the metal plate with tiny holes through which a polymer solution is pushed to form synthetic filaments."},
+{q:"In fashion designing, all colour harmony is composed of:",o:["Three tones, three shades","Three tones, two shades","Two shades, one tone","One tone, three shades"],a:0,e:"Standard colour harmony often relies on a balance of three tones and three shades to create a cohesive design."},
+{q:"It has a stiff, odorless and shiny appearance:",o:["Polyester","PVC","Nylon","Glass"],a:2,e:"Nylon is known for being strong, slightly stiff, odorless, and having a natural lustre or shine."},
+{q:"Choose the raw materials of glass:",o:["Petroleum, water, sand","Water, cellulose, gas","Oil, glass, water","Limestone, sand, soda"],a:3,e:"Glass is primarily made from silica sand, soda ash, and limestone."},
+{q:"Fabrics consisting of two or three layers of fabric stuck together are:",o:["Laminated","Bonded","Blended","Fused"],a:0,e:"Lamination involves bonding two or more layers of fabric together with heat and adhesive."},
+{q:"It is a fibre made by incorporating air into an elastic-like substance:",o:["Felt","Quilting","Foam","PVC"],a:2,e:"Foam is made by trapping gas bubbles in a liquid polymer, creating a lightweight, elastic material often used in padding."},
+{q:"Resilience is the ability of a fabric to:",o:["Resist dyes","Resist creases","Shrink","Twist"],a:1,e:"Resilience refers to a fibre's ability to recover its original shape after being crushed or creased."},
+{q:"Incorrect threading of the machine results in:",o:["Puckering","Lack of oil in machine","Tension","Treadness"],a:2,e:"If the sewing machine is threaded incorrectly, the tension on the thread will be wrong, causing loose stitches, loops, or tangling."},
+{q:"The name given to a fibre frequently called China grass is:",o:["Hemp","Cotton","Ramie","Sisal"],a:2,e:"Ramie is a strong, lustrous plant fibre often referred to as China grass."},
+{q:"Nylon is to silk as acrylic is to:",o:["Cotton","Wool","Polyester","Linen"],a:1,e:"Acrylic is a synthetic fibre designed to imitate the warmth and softness of wool, just as nylon was originally used to imitate silk."},
+{q:"Tergal is a trade name of ___ fabric.",o:["Cotton","Linen","Nylon","Polyester"],a:3,e:"Tergal is a well-known trade name for polyester fabric."},
+{q:"Laying out of patterns in superimposed layers:",o:["Laying out","Arranging patterns in the warp","Laying out of fabric in superimposed layers","placing fabrics direction"],a:2,e:"This is the definition of fabric spreading or laying up, where fabric is laid in multiple layers to cut many pattern pieces at once."},
+{q:"A part responsible for the controlled movement of material during sewing:",o:["Feed dog","Puller feed","Roller feed","Compound feed"],a:0,e:"The feed dog moves the fabric forward in a controlled, synchronized manner with the needle."},
+{q:"Allows the feed dog to emerge and grip fabrics as it moves during sewing:",o:["Throat plate","Compound feed","Needle clamp","Presser foot"],a:0,e:"The throat plate (or needle plate) has slots in it that allow the teeth of the feed dog to protrude and grip the fabric."}
+];
+
+/* ============================================================
+   PAPER 2 — STRUCTURED QUESTIONS
+   ============================================================ */
+const P2 = [
+{
+ sec:"SECTION A",
+ q:"<b>1.</b> Coming up soon is the visit of the prime minister's wife to the west region for a four-day meet-the-people tour. One of her advisers seek your opinion as a specialist in textile on the choice of blended fabric to choose that would be most suitable for a suit (jacket and trouser) to be worn bearing in mind that her visit shall take place in the month of August during heavy rainfall and extreme cold. The main fibre for the blend is wool. In addition, the durability of the main fibre needs to be improved on, the proportion of wool should be greater or equal to 50% and should have comfortable properties.",
+ sol:`<p><b>(a) Propose the fibre proportion of the blend:</b><br>Because the main fibre is wool and needs to be greater than or equal to 50%, a good blend would be <b>60% Wool and 40% Polyester</b>.</p>
+      <p><b>(b) Without using symbols, say how you will care for the blended fabric:</b><br>To care for a wool/polyester blend, it should be hand-washed in lukewarm water with a mild detergent, avoiding harsh rubbing or wringing. It should be dried flat in the shade away from direct heat. When ironing, use a cool to moderate iron setting (with a damp pressing cloth) to avoid scorching the wool or melting the polyester.</p>
+      <p><b>(c) Identify the properties that the blend will automatically have due to the larger presence of wool in the blend:</b><br>Because wool is the dominant fibre (50% or more), the fabric will inherit properties like excellent insulation (keeping the wearer warm in the extreme cold), good moisture absorption (wicking sweat away), natural elasticity, and a soft, comfortable handle.</p>
+      <p><b>(d) Differentiate between Pure New Wool and Pure Wool:</b><br><b>Pure New Wool</b> is made from virgin wool that has never been processed or woven before. <b>Pure Wool</b> may contain a small percentage of regenerated wool (shoddy) or fibres reclaimed from previously woven fabrics.</p>`
+},
+{
+ sec:"SECTION A",
+ q:"<b>2.</b> Finishing processes will enhance the penetration of dyes into textile products.<br><br>Identify any four (04) and write briefly (not more than 10 lines) on each one. (20 marks)",
+ sol:`<p>Four finishing processes that enhance dye penetration include:</p>
+      <ol>
+        <li><b>Scouring:</b> This is the removal of natural impurities like waxes, oils, and dirt from the fabric. By removing these barriers, the dye can easily penetrate the fibres.</li>
+        <li><b>Bleaching:</b> This process removes natural colouring matter from the fabric, making it uniformly white. A clean, white base ensures that the dye colour appears bright and true.</li>
+        <li><b>Mercerizing:</b> Treating cotton with strong alkali (sodium hydroxide). This swells the fibres, straightens them, and makes them highly absorbent, allowing dye molecules to penetrate deeper and resulting in richer, more lustrous colours.</li>
+        <li><b>Desizing:</b> Removing the sizing (starch) applied to yarns during weaving. If sizing remains, it forms a barrier that prevents dye from reaching the fibre, causing patchy results.</li>
+      </ol>`
+},
+{
+ sec:"SECTION B",
+ q:"<b>3.</b> Your brother has just opened a sewing workshop. Knowing you are an expert in the clothing industry, he expresses his inability to choose machines given that in the shops, the machine were displayed haphazardly. Help him by<br>(a) Classifying sewing machines according to their functions (10 marks)<br>(b) Stating the reference number of each machine (5 marks)",
+ sol:`<p><b>(a) Classification according to function:</b></p>
+      <ul>
+        <li><b>Lockstitch machines:</b> Used for general seaming and straight stitching.</li>
+        <li><b>Overlock machines:</b> Used for finishing raw edges to prevent fraying and for seaming knits.</li>
+        <li><b>Embroidery machines:</b> Used for decorative stitching and monogramming.</li>
+        <li><b>Buttonholing machines:</b> Specifically designed to create neat buttonholes.</li>
+        <li><b>Blindstitch machines:</b> Used for hemming where the stitches are invisible on the right side.</li>
+      </ul>
+      <p><b>(b) Reference numbers (Typical Industry Standards):</b></p>
+      <ul>
+        <li>Lockstitch: <b>Class 300</b> (e.g., 301 single thread, 301/302 double thread)</li>
+        <li>Overlock: <b>Class 500</b> (e.g., 504 for 3-thread, 514 for 4-thread)</li>
+        <li>Chainstitch: <b>Class 400</b></li>
+        <li>Coverstitch: <b>Class 600</b></li>
+      </ul>`
+},
+{
+ sec:"SECTION B",
+ q:"<b>4.</b> During sewing the following machine faults are identified; rocking noise, thread breakage and immovable fabric.<br>(a) What is the cause of each fault? (15 marks)<br>(b) Suggest ways of remedy for each fault. (15 marks)",
+ sol:`<p><b>Fault 1: Rocking Noise</b></p>
+      <ul>
+        <li><b>Cause:</b> Loose parts (like the needle clamp or presser foot), lack of oil causing friction, or a worn-out gear/belt.</li>
+        <li><b>Remedy:</b> Tighten all loose screws, apply machine oil to the recommended lubrication points, and check/replace worn-out internal parts.</li>
+      </ul>
+      <p><b>Fault 2: Thread Breakage</b></p>
+      <ul>
+        <li><b>Cause:</b> Incorrect threading, thread tension too tight, a blunt or bent needle, or a rough spot in the needle eye or throat plate.</li>
+        <li><b>Remedy:</b> Re-thread the machine correctly, adjust the tension dial, replace the needle with a new sharp one, and check for burrs on the throat plate.</li>
+      </ul>
+      <p><b>Fault 3: Immovable Fabric</b></p>
+      <ul>
+        <li><b>Cause:</b> Presser foot pressure is too high, feed dogs are lowered (dropped for free-motion quilting), or the stitch length is set to zero.</li>
+        <li><b>Remedy:</b> Adjust the presser foot pressure, raise the feed dogs if they are dropped, and adjust the stitch length regulator to a normal setting.</li>
+      </ul>`
+},
+{
+ sec:"SECTION B",
+ q:"<b>5.</b> While cleaning your machine, you manipulated the wheel; a mechanism produced and some organs began moving.<br>(a) List four organs of this machine likely to move (5 marks)<br>(b) For each movement, draw the symbol. (10 marks)",
+ sol:`<p><b>(a) Four organs likely to move when the handwheel is turned:</b></p>
+      <ol>
+        <li>Needle and needle bar (up and down motion)</li>
+        <li>Take-up lever (up and down motion)</li>
+        <li>Feed dog (forward and backward motion)</li>
+        <li>Bobbin case/rotary hook (rotational motion)</li>
+      </ol>
+      <p><b>(b) Symbols for the movements:</b></p>
+      <ul>
+        <li>Needle: A double-headed vertical arrow (↕) indicating up and down movement.</li>
+        <li>Take-up lever: A curved arrow or vertical double-headed arrow.</li>
+        <li>Feed dog: A horizontal double-headed arrow (↔) indicating forward and backward movement.</li>
+        <li>Bobbin: A circular arrow (↻) indicating rotational movement.</li>
+      </ul>`
+}
+];
+
+/* ============================================================
+   PROGRESS TRACKING
+   ============================================================ */
+const STORAGE_KEY = 'kynet_clothing_2020_v1';
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      return {
+        p1: { qi: (typeof d.p1?.qi === 'number') ? d.p1.qi : 0, answers: d.p1?.answers || {} },
+        p2: { qi: (typeof d.p2?.qi === 'number') ? d.p2.qi : 0, viewed: d.p2?.viewed || {} }
+      };
+    }
+  } catch (e) {}
+  return { p1: { qi: 0, answers: {} }, p2: { qi: 0, viewed: {} } };
+}
+
+function saveProgress() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (e) {}
+}
+
+let progress = loadProgress();
+
+function getP1AnsweredCount() { return Object.keys(progress.p1.answers).length; }
+function getP1Score() {
+  let s = 0;
+  for (let i = 0; i < QS.length; i++) {
+    if (progress.p1.answers[i] === QS[i].a) s++;
+  }
+  return s;
+}
+function getP2ViewedCount() { return Object.keys(progress.p2.viewed).length; }
+
+function resetP1() {
+  progress.p1 = { qi: 0, answers: {} };
+  saveProgress();
+}
+function resetP2() {
+  progress.p2 = { qi: 0, viewed: {} };
+  saveProgress();
+}
+function resetAll() {
+  progress = { p1: { qi: 0, answers: {} }, p2: { qi: 0, viewed: {} } };
+  saveProgress();
+}
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+const app = document.getElementById('app');
+const fx  = document.getElementById('fx');
+const nav = document.getElementById('nav');
+
+const state = { screen: 'home', lec: 0 };
+
+function celebrate() {
+  const emo = ['🎈','🎈','🌹','🎈','🌹','🎉','🌹','🎈','🌹'];
+  for (let i = 0; i < 34; i++) {
+    const el = document.createElement('span');
+    el.className = 'floater';
+    el.textContent = emo[Math.floor(Math.random() * emo.length)];
+    el.style.left = (Math.random() * 96) + 'vw';
+    el.style.fontSize = (30 + Math.random() * 46) + 'px';
+    el.style.animationDuration = (2.6 + Math.random() * 2.6) + 's';
+    el.style.animationDelay = (Math.random() * 0.7) + 's';
+    fx.appendChild(el);
+    setTimeout(() => el.remove(), 6500);
+  }
+}
+
+function setNav() {
+  nav.querySelectorAll('button').forEach(b => {
+    const t = b.dataset.nav;
+    const active =
+      (t === 'home' && state.screen === 'home') ||
+      (t === 'lectures' && (state.screen === 'lectures' || state.screen === 'lecture')) ||
+      (t === 'p1intro' && (state.screen === 'p1intro' || state.screen === 'paper1' || state.screen === 'p1result')) ||
+      (t === 'p2intro' && (state.screen === 'p2intro' || state.screen === 'paper2' || state.screen === 'p2result'));
+    b.classList.toggle('active', active);
+  });
+}
+
+nav.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  go(b.dataset.nav);
+});
+
+function go(screen) {
+  state.screen = screen;
+  render();
+}
+
+/* ---------- HOME ---------- */
+function renderHome() {
+  const p1ans = getP1AnsweredCount();
+  const p1score = getP1Score();
+  const p1resume = p1ans > 0 || progress.p1.qi > 0;
+  const p1Label = p1resume
+    ? 'RESUME Q ' + (progress.p1.qi + 1) + ' • ' + p1ans + '/' + QS.length + ' DONE • ' + p1score + ' CORRECT'
+    : QS.length + ' QUESTIONS';
+  const p2viewed = getP2ViewedCount();
+  const p2resume = p2viewed > 0 || progress.p2.qi > 0;
+  const p2Label = p2resume
+    ? 'RESUME Q ' + (progress.p2.qi + 1) + ' • ' + p2viewed + '/' + P2.length + ' VIEWED'
+    : P2.length + ' QUESTIONS';
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta">' +
+        '<span class="badge">GCE ORDINARY LEVEL — CLOTHING & TEXTILES 7180</span>' +
+        '<span class="badge red">JUNE 2020</span>' +
+      '</div>' +
+      '<h2 class="lec-title">CHOOSE WHERE TO START</h2>' +
+      '<button class="homebtn b1" data-go="lectures"><span>📚 LECTURES — LEARN THE TOPICS</span><span class="num">' + LECS.length + '</span></button>' +
+      '<button class="homebtn b2" data-go="p1intro"><span>📝 PAPER 1 — MULTIPLE CHOICE</span><span class="num" style="font-size:.65em;">' + p1Label + '</span></button>' +
+      '<button class="homebtn b3" data-go="p2intro"><span>📄 PAPER 2 — STRUCTURED PRACTICE</span><span class="num" style="font-size:.65em;">' + p2Label + '</span></button>' +
+      (p1resume || p2resume
+        ? '<div class="info green"><b>✅ YOUR PROGRESS IS SAVED</b><br>You can close the browser and come back — click Paper 1 or Paper 2 to continue exactly where you left off. Use the <b>Previous</b> and <b>Next</b> buttons inside each paper to navigate freely.</div>'
+        : '') +
+      '<div class="info red">' +
+        '<b>⚠️ IMPORTANT ADVISORY</b><br>' +
+        'Please have the <b>original GCE question paper</b> with you for reference — especially for diagrams and tables.' +
+      '</div>' +
+      '<div class="info">' +
+        '<b>HOW TO USE THIS PLATFORM</b><br>' +
+        '1. Study the 5 lectures to master fibre science, fabric construction, and sewing tools.<br>' +
+        '2. Answer Paper 1 — use Previous/Next to move freely. Answers and score are saved.<br>' +
+        '3. Practise Paper 2 — each question on its own page with full model answers.<br>' +
+        '4. Your progress is saved automatically — you can resume any time.' +
+      '</div>' +
+      (p1resume || p2resume
+        ? '<div class="btnrow"><button class="btn red" id="resetAllBtn">🗑️ RESET ALL PROGRESS</button></div>'
+        : '') +
+    '</div>';
+
+  app.querySelectorAll('[data-go]').forEach(b => {
+    b.onclick = () => go(b.dataset.go);
+  });
+  const rb = document.getElementById('resetAllBtn');
+  if (rb) rb.onclick = () => {
+    if (confirm('Reset ALL progress? This cannot be undone.')) {
+      resetAll();
+      renderHome();
+    }
+  };
+}
+
+/* ---------- LECTURE INDEX ---------- */
+function renderLectureIndex() {
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta"><span class="badge">LECTURE LIBRARY</span>' +
+      '<span class="badge red">' + LECS.length + ' LECTURES — BOTH PAPERS</span></div>' +
+      '<h2 class="lec-title">FOLLOW THESE IN ORDER</h2>' +
+      '<div class="grid">' +
+        LECS.map((L, i) =>
+          '<button class="gridcard" data-lec="' + i + '">' +
+            '<div class="gtitle">' + L.title + '</div>' +
+            '<span class="gtag">' + L.tag + '</span>' +
+          '</button>').join('') +
+      '</div>' +
+      '<div class="btnrow">' +
+        '<button class="btn blue" id="startFirst">START LECTURE 1 ▶</button>' +
+        '<button class="btn green" id="goP1">GO TO PAPER 1 ▶</button>' +
+      '</div>' +
+    '</div>';
+  app.querySelectorAll('[data-lec]').forEach(b => {
+    b.onclick = () => { state.lec = +b.dataset.lec; state.screen = 'lecture'; render(); };
+  });
+  document.getElementById('startFirst').onclick = () => { state.lec = 0; state.screen = 'lecture'; render(); };
+  document.getElementById('goP1').onclick = () => go('p1intro');
+}
+
+/* ---------- BLOCK RENDERER ---------- */
+function blockHTML(b) {
+  switch (b.type) {
+    case 'h':       return '<div class="bh">' + b.text + '</div>';
+    case 'p':       return '<p class="bp">' + b.text + '</p>';
+    case 'ul':      return '<ul class="bul">' + b.items.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+    case 'tip':     return '<div class="btip">' + b.text + '</div>';
+    case 'worked':  return '<div class="bworked"><b>' + b.title + '</b><ol>' + b.steps.map(s => '<li>' + s + '</li>').join('') + '</ol><div class="bans">' + b.answer + '</div></div>';
+    case 'p2':      return '<div class="bp2"><b class="p2h">' + b.title + '</b>' + b.body + '</div>';
+  }
+  return '';
+}
+
+/* ---------- LECTURE PAGE ---------- */
+function renderLecture() {
+  const L = LECS[state.lec];
+  const total = LECS.length;
+  const pct = Math.round(((state.lec + 1) / total) * 100);
+  const last = state.lec === total - 1;
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta">' +
+        '<span class="badge">LECTURE ' + (state.lec + 1) + ' OF ' + total + '</span>' +
+        '<span class="badge yel">' + L.tag + '</span>' +
+      '</div>' +
+      '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+      '<h2 class="lec-title">' + L.title + '</h2>' +
+      L.blocks.map(blockHTML).join('') +
+      '<div class="btnrow">' +
+        '<button class="btn" id="lecIndex">📚 ALL LECTURES</button>' +
+        (state.lec > 0 ? '<button class="btn" id="prevLec">◀ PREVIOUS</button>' : '') +
+        (!last ? '<button class="btn blue" id="nextLec">NEXT ▶</button>' : '') +
+        '<button class="btn green" id="toPaper1">GO TO PAPER 1 ▶</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('lecIndex').onclick = () => { state.screen = 'lectures'; render(); };
+  const p = document.getElementById('prevLec');
+  if (p) p.onclick = () => { state.lec--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const n = document.getElementById('nextLec');
+  if (n) n.onclick = () => { state.lec++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  document.getElementById('toPaper1').onclick = () => go('p1intro');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------- PAPER 1 INTRO ---------- */
+function renderP1Intro() {
+  const p1ans = getP1AnsweredCount();
+  const p1score = getP1Score();
+  const p1resume = p1ans > 0 || progress.p1.qi > 0;
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta"><span class="badge">PAPER 1 — 7180/1</span>' +
+      '<span class="badge red">JUNE 2020</span></div>' +
+      '<h2 class="lec-title">MULTIPLE CHOICE — ' + (p1resume ? 'RESUME' : 'BEGIN') + '</h2>' +
+      (p1resume
+        ? '<div class="info green"><b>✅ PROGRESS FOUND</b><br>You are currently at <b>Question ' + (progress.p1.qi + 1) + '</b> with <b>' + p1ans + ' of ' + QS.length + '</b> answered (' + p1score + ' correct). Click RESUME to continue.</div>'
+        : '') +
+      '<div class="info red" style="border-left-color:#e4002b; background:#ffe1e5;"><b>⚠️ ADVISORY</b><br>Please have the original question paper with you for reference.</div>' +
+      '<div class="info">' +
+        '<b>EXAMINATION INSTRUCTIONS</b><br>' +
+        '• Duration: One and a half hours<br>' +
+        '• Answer ALL 50 questions.<br>' +
+        '• Select ONE answer per question.<br>' +
+        '• Non-programmable calculators are allowed.' +
+      '</div>' +
+      '<div class="btnrow">' +
+        '<button class="btn green" id="startP1">' + (p1resume ? 'RESUME PAPER 1 ▶' : 'START PAPER 1 ▶') + '</button>' +
+        (p1resume ? '<button class="btn red" id="resetP1Btn">🗑️ RESET PAPER 1</button>' : '') +
+        '<button class="btn" id="backLec2">📚 LECTURES</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('startP1').onclick = () => {
+    state.screen = 'paper1'; render();
+  };
+  document.getElementById('backLec2').onclick = () => { state.screen = 'lectures'; render(); };
+  const rb = document.getElementById('resetP1Btn');
+  if (rb) rb.onclick = () => {
+    if (confirm('Reset Paper 1 progress? This cannot be undone.')) {
+      resetP1();
+      renderP1Intro();
+    }
+  };
+}
+
+/* ---------- PAPER 1 — QUESTION ---------- */
+function renderPaper1() {
+  const qi = progress.p1.qi;
+  const q = QS[qi];
+  const total = QS.length;
+  const answered = progress.p1.answers[qi] !== undefined;
+  const selected = progress.p1.answers[qi];
+  const score = getP1Score();
+  const ansCount = getP1AnsweredCount();
+  const pct = Math.round(((qi + 1) / total) * 100);
+
+  let html = '';
+  html += '<div class="card pop">';
+  html += '<div class="qmeta">';
+  html += '<span class="badge">QUESTION ' + (qi + 1) + ' OF ' + total + '</span>';
+  html += '<span class="badge green" id="scoreBadge">SCORE: ' + score + ' &nbsp;|&nbsp; ANSWERED: ' + ansCount + '/' + total + '</span>';
+  html += '</div>';
+  html += '<div class="bar"><i style="width:' + pct + '%"></i></div>';
+  html += '<p class="qtext">' + q.q + '</p>';
+  html += '<div id="opts">';
+  q.o.forEach((o, i) => {
+    html += '<button class="opt" data-i="' + i + '"><span class="letter">' + "ABCD"[i] + '</span>' + o + '</button>';
+  });
+  html += '</div>';
+  html += '<div id="fb"></div>';
+  html += '<div class="btnrow" style="margin-top:28px; justify-content:space-between;">';
+  if (qi > 0) {
+    html += '<button class="btn" id="prevBtn">◀ PREVIOUS</button>';
+  } else {
+    html += '<span></span>';
+  }
+  if (qi < total - 1) {
+    html += '<button class="btn blue" id="nextBtn">NEXT ▶</button>';
+  } else {
+    html += '<button class="btn green" id="finishBtn">FINISH & SEE RESULT ▶</button>';
+  }
+  html += '</div>';
+  html += '</div>';
+
+  app.innerHTML = html;
+
+  app.querySelectorAll('.opt').forEach(b => {
+    const i = parseInt(b.dataset.i, 10);
+    if (answered) {
+      b.disabled = true;
+      if (i === selected) {
+        b.classList.add(i === q.a ? 'correct' : 'wrong');
+      }
+      if (i === q.a && selected !== q.a) {
+        b.classList.add('correct');
+      }
+    }
+    b.onclick = () => chooseP1(i);
+  });
+
+  if (answered) {
+    showP1Feedback(selected === q.a, q);
+  }
+
+  const prevBtn = document.getElementById('prevBtn');
+  if (prevBtn) prevBtn.onclick = () => {
+    progress.p1.qi--;
+    saveProgress();
+    renderPaper1();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const nextBtn = document.getElementById('nextBtn');
+  if (nextBtn) nextBtn.onclick = () => {
+    progress.p1.qi++;
+    saveProgress();
+    renderPaper1();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const finishBtn = document.getElementById('finishBtn');
+  if (finishBtn) finishBtn.onclick = () => {
+    state.screen = 'p1result'; render();
+  };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function chooseP1(i) {
+  const qi = progress.p1.qi;
+  if (progress.p1.answers[qi] !== undefined) return;
+  const q = QS[qi];
+  const opts = app.querySelectorAll('.opt');
+  opts.forEach(b => b.disabled = true);
+  progress.p1.answers[qi] = i;
+  saveProgress();
+  opts[q.a].classList.add('correct');
+  const score = getP1Score();
+  const ansCount = getP1AnsweredCount();
+  document.getElementById('scoreBadge').textContent = 'SCORE: ' + score + ' | ANSWERED: ' + ansCount + '/' + QS.length;
+  if (i === q.a) {
+    celebrate();
+    showP1Feedback(true, q);
+  } else {
+    opts[i].classList.add('wrong');
+    const c = app.querySelector('.card');
+    c.classList.add('shake');
+    setTimeout(() => c.classList.remove('shake'), 600);
+    showP1Feedback(false, q);
+  }
+}
+
+function showP1Feedback(ok, q) {
+  const fb = document.getElementById('fb');
+  fb.innerHTML =
+    '<div class="feedback ' + (ok ? 'good' : 'bad') + ' pop">' +
+      '<span class="big">' + (ok ? '🎉 🎈 🌹' : '😢 ❌') + '</span>' +
+      '<div class="head">' + (ok ? 'CORRECT! CONGRATULATIONS!' : 'OOPS! THAT IS NOT CORRECT.') + '</div>' +
+      '<div style="margin-bottom:12px;">THE RIGHT ANSWER IS <span class="answer-chip">' + "ABCD"[q.a] + '. ' + q.o[q.a] + '</span></div>' +
+      '<div><b>EXPLANATION:</b> ' + q.e + '</div>' +
+    '</div>';
+}
+
+/* ---------- PAPER 1 — RESULT ---------- */
+function renderP1Result() {
+  const total = QS.length;
+  const answered = getP1AnsweredCount();
+  const score = getP1Score();
+  const unanswered = total - answered;
+  const pct = Math.round((score / total) * 100);
+  let msg, emoji, cls;
+  if (pct >= 80) { msg = 'EXCELLENT! YOU ARE GCE READY!'; emoji = '🏆🎉🌹'; cls = 'good'; }
+  else if (pct >= 50) { msg = 'GOOD EFFORT! REVISE THE LECTURES AND TRY AGAIN.'; emoji = '👍🎈'; cls = 'good'; }
+  else { msg = 'KEEP PRACTISING! GO THROUGH THE LECTURES AGAIN.'; emoji = '💪📚'; cls = 'bad'; }
+
+  let gridHTML = '<div class="ag">';
+  for (let i = 0; i < QS.length; i++) {
+    const sel = progress.p1.answers[i];
+    let cls2 = 'unanswered';
+    if (sel !== undefined) cls2 = (sel === QS[i].a) ? 'correct' : 'wrong';
+    gridHTML += '<div class="ag-cell ' + cls2 + '" data-q="' + i + '">' + (i + 1) + '</div>';
+  }
+  gridHTML += '</div>';
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta"><span class="badge">CLOTHING 7180/1 — JUNE 2020</span>' +
+      '<span class="badge red">RESULT</span></div>' +
+      '<div class="feedback ' + cls + '" style="text-align:center;">' +
+        '<span class="big">' + emoji + '</span>' +
+        '<div class="head">YOU SCORED ' + score + ' OUT OF ' + total + '</div>' +
+        '<div style="font-size:clamp(30px,6vw,70px);">' + pct + '%</div>' +
+        '<div style="margin-top:10px;">' + msg + '</div>' +
+        '<div style="margin-top:14px;font-size:.85em;">ANSWERED: ' + answered + ' &nbsp;•&nbsp; UNANSWERED: ' + unanswered + '</div>' +
+      '</div>' +
+      (unanswered > 0
+        ? '<div class="info red" style="margin-top:18px;border-left-color:#e4002b;background:#ffe1e5;"><b>⚠️ YOU HAVE ' + unanswered + ' UNANSWERED QUESTIONS</b><br>Click the grid below to jump to any question and answer it. Then come back here for a new result.</div>'
+        : '') +
+      '<div class="ag-wrap">' +
+        '<div class="ag-title">📋 ANSWER GRID — CLICK ANY QUESTION TO REVIEW</div>' +
+        gridHTML +
+        '<div style="margin-top:10px;font-size:.8em;">🟩 CORRECT &nbsp; 🔴 WRONG &nbsp; ⬜ UNANSWERED</div>' +
+      '</div>' +
+      '<div class="btnrow">' +
+        '<button class="btn blue" id="reviewBtn">📝 REVIEW ANSWERS</button>' +
+        '<button class="btn green" id="p2Btn">GO TO PAPER 2 ▶</button>' +
+        '<button class="btn red" id="resetP1R">🗑️ RESET PAPER 1</button>' +
+      '</div>' +
+    '</div>';
+
+  if (pct >= 50) celebrate();
+
+  document.querySelectorAll('.ag-cell').forEach(c => {
+    c.onclick = () => {
+      progress.p1.qi = parseInt(c.dataset.q, 10);
+      saveProgress();
+      state.screen = 'paper1'; render();
+    };
+  });
+  document.getElementById('reviewBtn').onclick = () => {
+    progress.p1.qi = 0;
+    saveProgress();
+    state.screen = 'paper1'; render();
+  };
+  document.getElementById('p2Btn').onclick = () => go('p2intro');
+  document.getElementById('resetP1R').onclick = () => {
+    if (confirm('Reset Paper 1 progress? This cannot be undone.')) {
+      resetP1();
+      go('p1intro');
+    }
+  };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------- PAPER 2 INTRO ---------- */
+function renderP2Intro() {
+  const p2viewed = getP2ViewedCount();
+  const p2resume = p2viewed > 0 || progress.p2.qi > 0;
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta"><span class="badge">PAPER 2 — 7180/2</span>' +
+      '<span class="badge red">JUNE 2020</span></div>' +
+      '<h2 class="lec-title">STRUCTURED QUESTIONS — ' + (p2resume ? 'RESUME' : 'BEGIN') + '</h2>' +
+      (p2resume
+        ? '<div class="info green"><b>✅ PROGRESS FOUND</b><br>You are currently at <b>Question ' + (progress.p2.qi + 1) + '</b> with <b>' + p2viewed + ' of ' + P2.length + '</b> model answers viewed. Click RESUME to continue.</div>'
+        : '') +
+      '<div class="info red" style="border-left-color:#e4002b; background:#ffe1e5;"><b>⚠️ ADVISORY</b><br>Please have the original question paper with you for reference.</div>' +
+      '<div class="info">' +
+        '<b>EXAMINATION INSTRUCTIONS</b><br>' +
+        'This paper has TWO sections. Answer ALL questions from Section A, and ANY TWO questions from Section B.<br>' +
+        'Show all working and use good English.' +
+      '</div>' +
+      '<div class="btnrow">' +
+        '<button class="btn green" id="startP2">' + (p2resume ? 'RESUME PAPER 2 ▶' : 'START PAPER 2 ▶') + '</button>' +
+        (p2resume ? '<button class="btn red" id="resetP2Btn">🗑️ RESET PAPER 2</button>' : '') +
+        '<button class="btn" id="backLec3">📚 LECTURES</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('startP2').onclick = () => {
+    state.screen = 'paper2'; render();
+  };
+  document.getElementById('backLec3').onclick = () => { state.screen = 'lectures'; render(); };
+  const rb = document.getElementById('resetP2Btn');
+  if (rb) rb.onclick = () => {
+    if (confirm('Reset Paper 2 progress? This cannot be undone.')) {
+      resetP2();
+      renderP2Intro();
+    }
+  };
+}
+
+/* ---------- PAPER 2 — QUESTION ---------- */
+function renderPaper2() {
+  const pi = progress.p2.qi;
+  const p = P2[pi];
+  const total = P2.length;
+  const pct = Math.round(((pi + 1) / total) * 100);
+  const viewed = progress.p2.viewed[pi] === true;
+  const last = pi === total - 1;
+  const viewedCount = getP2ViewedCount();
+
+  let html = '';
+  html += '<div class="card pop">';
+  html += '<div class="qmeta">';
+  html += '<span class="badge">' + p.sec + '</span>';
+  html += '<span class="badge yel">QUESTION ' + (pi + 1) + ' OF ' + total + ' &nbsp;|&nbsp; VIEWED: ' + viewedCount + '/' + total + '</span>';
+  html += '</div>';
+  html += '<div class="bar"><i style="width:' + pct + '%"></i></div>';
+  html += '<div class="p2card" style="box-shadow:none; border-width:4px; margin-bottom:0;">';
+  html += '<div class="p2q" style="font-size:clamp(16px,2vw,24px);">' + p.q + '</div>';
+  html += '<button class="btn sm ' + (viewed ? 'green' : 'blue') + '" id="showSolBtn">' + (viewed ? 'HIDE MODEL ANSWER ▲' : 'SHOW MODEL ANSWER ▶') + '</button>';
+  html += '<div class="p2sol" id="solBox" style="display:' + (viewed ? 'block' : 'none') + ';">';
+  html += '<div class="p2label">MODEL ANSWER</div>' + p.sol;
+  html += '</div>';
+  html += '</div>';
+  html += '<div class="btnrow" style="margin-top:28px; justify-content:space-between;">';
+  if (pi > 0) {
+    html += '<button class="btn" id="prevP2Btn">◀ PREVIOUS</button>';
+  } else {
+    html += '<span></span>';
+  }
+  if (!last) {
+    html += '<button class="btn blue" id="nextP2Btn">NEXT ▶</button>';
+  } else {
+    html += '<button class="btn green" id="finishP2Btn">FINISH & SEE RESULT ▶</button>';
+  }
+  html += '</div>';
+  html += '</div>';
+
+  app.innerHTML = html;
+
+  document.getElementById('showSolBtn').onclick = () => {
+    const box = document.getElementById('solBox');
+    const btn = document.getElementById('showSolBtn');
+    const open = box.style.display === 'block';
+    box.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? 'SHOW MODEL ANSWER ▶' : 'HIDE MODEL ANSWER ▲';
+    btn.className = 'btn sm ' + (open ? 'blue' : 'green');
+    if (!open) {
+      progress.p2.viewed[pi] = true;
+      saveProgress();
+      celebrate();
+      document.querySelector('.badge.yel').innerHTML = 'QUESTION ' + (pi + 1) + ' OF ' + total + ' &nbsp;|&nbsp; VIEWED: ' + getP2ViewedCount() + '/' + total;
+    }
+  };
+
+  const prevBtn = document.getElementById('prevP2Btn');
+  if (prevBtn) prevBtn.onclick = () => {
+    progress.p2.qi--;
+    saveProgress();
+    renderPaper2();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const nextBtn = document.getElementById('nextP2Btn');
+  if (nextBtn) nextBtn.onclick = () => {
+    progress.p2.qi++;
+    saveProgress();
+    renderPaper2();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const finishBtn = document.getElementById('finishP2Btn');
+  if (finishBtn) finishBtn.onclick = () => {
+    state.screen = 'p2result'; render();
+  };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------- PAPER 2 — RESULT ---------- */
+function renderP2Result() {
+  const total = P2.length;
+  const viewed = getP2ViewedCount();
+  const unviewed = total - viewed;
+
+  let gridHTML = '<div class="ag">';
+  for (let i = 0; i < P2.length; i++) {
+    const v = progress.p2.viewed[i] === true;
+    gridHTML += '<div class="ag-cell ' + (v ? 'correct' : 'unanswered') + '" data-q="' + i + '">' + (i + 1) + '</div>';
+  }
+  gridHTML += '</div>';
+
+  app.innerHTML =
+    '<div class="card pop">' +
+      '<div class="qmeta"><span class="badge">CLOTHING 7180/2 — JUNE 2020</span>' +
+      '<span class="badge red">PAPER 2 COMPLETE</span></div>' +
+      '<div class="feedback good" style="text-align:center;">' +
+        '<span class="big">📝 🎉</span>' +
+        '<div class="head">YOU HAVE COMPLETED PAPER 2</div>' +
+        '<div style="margin-top:10px;">Model answers viewed: <b>' + viewed + ' of ' + total + '</b></div>' +
+        (unviewed > 0
+          ? '<div style="margin-top:10px;color:#e4002b;">⚠️ ' + unviewed + ' solutions not yet viewed — click the grid below to review them.</div>'
+          : '<div style="margin-top:10px;">🏆 ALL model answers viewed! Excellent work.</div>') +
+      '</div>' +
+      '<div class="ag-wrap">' +
+        '<div class="ag-title">📋 QUESTION GRID — CLICK ANY QUESTION TO REVIEW</div>' +
+        gridHTML +
+        '<div style="margin-top:10px;font-size:.8em;">🟩 SOLUTION VIEWED &nbsp; ⬜ NOT YET VIEWED</div>' +
+      '</div>' +
+      '<div class="btnrow">' +
+        '<button class="btn blue" id="reviewP2Btn">📝 REVIEW PAPER 2</button>' +
+        '<button class="btn green" id="p1Btn">GO TO PAPER 1 ▶</button>' +
+        '<button class="btn red" id="resetP2R">🗑️ RESET PAPER 2</button>' +
+      '</div>' +
+    '</div>';
+
+  celebrate();
+
+  document.querySelectorAll('.ag-cell').forEach(c => {
+    c.onclick = () => {
+      progress.p2.qi = parseInt(c.dataset.q, 10);
+      saveProgress();
+      state.screen = 'paper2'; render();
+    };
+  });
+  document.getElementById('reviewP2Btn').onclick = () => {
+    progress.p2.qi = 0;
+    saveProgress();
+    state.screen = 'paper2'; render();
+  };
+  document.getElementById('p1Btn').onclick = () => go('p1intro');
+  document.getElementById('resetP2R').onclick = () => {
+    if (confirm('Reset Paper 2 progress? This cannot be undone.')) {
+      resetP2();
+      go('p2intro');
+    }
+  };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------- MASTER RENDER ---------- */
+function render() {
+  setNav();
+  if (state.screen === 'home') renderHome();
+  else if (state.screen === 'lectures') renderLectureIndex();
+  else if (state.screen === 'lecture') renderLecture();
+  else if (state.screen === 'p1intro') renderP1Intro();
+  else if (state.screen === 'paper1') renderPaper1();
+  else if (state.screen === 'p1result') renderP1Result();
+  else if (state.screen === 'p2intro') renderP2Intro();
+  else if (state.screen === 'paper2') renderPaper2();
+  else if (state.screen === 'p2result') renderP2Result();
+}
+
+render();
+</script>
+</body>
+</html>
